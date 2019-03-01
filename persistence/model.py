@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Float
+from sqlalchemy import Column, ForeignKey, Integer, String, Float, UniqueConstraint
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -11,7 +11,7 @@ class Product(Base):
     __tablename__ = 'product'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(255), nullable=False)
+    name = Column(String(255), nullable=False, unique=True)
     description = Column(String(500))
     price = Column(Float(precision=2))
     category_id = Column(Integer, ForeignKey('category.id'))
@@ -19,7 +19,6 @@ class Product(Base):
 
     @property
     def serialize(self):
-        """Return object to JSON format"""
         return {
             'id': self.id,
             'name': self.name,
@@ -47,12 +46,11 @@ class Category(Base):
     __tablename__ = 'category'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(255), nullable=False)
+    name = Column(String(255), nullable=False, unique=True)
     product = relationship(Product)
 
     @property
     def serialize_with_item(self):
-        """Return object to JSON format"""
         return {
             'name': self.name,
             'id': self.id,
@@ -61,7 +59,6 @@ class Category(Base):
 
     @property
     def serialize(self):
-        """Return object to JSON format"""
         return {
             'name': self.name,
             'id': self.id
