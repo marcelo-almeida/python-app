@@ -1,2 +1,2 @@
 psycopg2==2.7.7
-sqlalchemy==1.2.15
+sqlalchemy==1.2.18
