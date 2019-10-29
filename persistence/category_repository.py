@@ -5,7 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm.exc import NoResultFound
 
 
-class CategoryService:
+class CategoryRepository:
 
     def __init__(self):
         self.db = Database()
@@ -53,10 +53,10 @@ class CategoryService:
     def get(self, limit=None, offset=None) -> list:
         session = self.db.session()
         try:
-            if limit is None and offset is None:
-                categories = session.query(Category).all()
-            else:
+            if limit and offset:
                 categories = session.query(Category).order_by(desc('name')).limit(limit).offset(offset)
+            else:
+                categories = session.query(Category).all()
             return categories
         except NoResultFound:
             return []
@@ -82,4 +82,3 @@ class CategoryService:
             return None
         finally:
             session.close()
-

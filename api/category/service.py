@@ -1,6 +1,6 @@
-from api.category.repository import CategoryService, Category
+from persistence.category_repository import CategoryRepository, Category
 
-repository = CategoryService()
+repository = CategoryRepository()
 
 
 def add_category(category: Category):
