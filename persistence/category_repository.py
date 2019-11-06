@@ -10,17 +10,7 @@ class CategoryRepository:
     def __init__(self):
         self.db = Database()
 
-    def add(self, category: Category):
-        session = self.db.session()
-        try:
-            session.add(category)
-            session.commit()
-        except SQLAlchemyError:
-            session.rollback()
-        finally:
-            session.close()
-
-    def update(self, category: Category):
+    def save(self, category: Category):
         session = self.db.session()
         try:
             session.add(category)

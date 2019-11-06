@@ -4,11 +4,11 @@ repository = CategoryRepository()
 
 
 def add_category(category: Category):
-    repository.add(category=category)
+    repository.save(category=category)
 
 
 def update_category(category: Category):
-    repository.update(category=category)
+    repository.save(category=category)
 
 
 def delete_category(category: Category):
